@@ -1,0 +1,5 @@
+!#/bin/bash
+echo 
+vagrant init ubuntu/trusty 64
+vagrant up
+vagrant ssh

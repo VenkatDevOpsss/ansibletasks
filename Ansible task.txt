@@ -1,0 +1,41 @@
+---
+  hosts: Ubuntu
+  gather_facts: False
+  tasks:
+    -name: add group
+     group: 
+     name: root
+     state: present
+
+    - name: Set timezone variables
+      copy: content='Asia/Kolkata'
+            dest=/etc/timezone
+            owner=root
+            group=root
+            backup=yes
+      notify:
+        - update timezone
+     - user: 
+      name:testuser 
+      group: "root"
+     - name: Creates directory
+     - file:
+       path: /home/testuser
+       state: directory
+       owner: root
+       group: group name
+       mode: 600
+     -name: To install softwares
+      apt: 
+      name: {{items}}
+      state: latest
+      with_items:
+       - python 
+       - supervisord
+       - consul
+  
+  handlers:
+     - name: update timezone
+       command: dpkg-reconfigure
+
+     
